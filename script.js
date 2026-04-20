@@ -5,69 +5,70 @@ let recrutamentos = JSON.parse(localStorage.getItem('recrutamentos')) || [];
 
 /* NAVEGAÇÃO */
 function go(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
 function goHome(){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 }
 
 /* ENVIAR */
 function enviar(e){
-e.preventDefault();
+  e.preventDefault();
 
-recrutamentos.push({
-nick:nick.value,
-motivo:motivo.value,
-skill:skill.value,
-tempo:tempo.value
-});
+  recrutamentos.push({
+    nick: document.getElementById('nick').value,
+    motivo: document.getElementById('motivo').value,
+    skill: document.getElementById('skill').value,
+    tempo: document.getElementById('tempo').value,
+    discord: document.getElementById('discord').value
+  });
 
-localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
-
-alert("Inscrição enviada!");
+  localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
+  alert("Inscrição enviada!");
 }
 
 /* LOGIN */
 function login(e){
-e.preventDefault();
+  e.preventDefault();
 
-if(user.value === USER && pass.value === PASS){
-go('admin');
-render();
-}else{
-alert("Acesso negado");
-}
+  if (document.getElementById('user').value === USER && document.getElementById('pass').value === PASS) {
+    go('admin');
+    render();
+  } else {
+    alert("Acesso negado");
+  }
 }
 
 /* RENDER */
 function render(){
-let div = document.getElementById('lista');
-div.innerHTML="";
+  let div = document.getElementById('lista');
+  div.innerHTML = "";
 
-recrutamentos.forEach((r,i)=>{
-div.innerHTML += `
-<div class="admin-card">
-<b>${r.nick}</b><br>
-${r.motivo}<br>
-${r.skill}<br>
-
-<button onclick="aceitar(${i})">Aceitar</button>
-<button onclick="recusar(${i})">Recusar</button>
-</div>
-`;
-});
+  recrutamentos.forEach((r, i) => {
+    div.innerHTML += `
+      <div class="admin-card">
+        <b>${r.nick}</b><br>
+        Motivo: ${r.motivo}<br>
+        Habilidade: ${r.skill}<br>
+        Tempo: ${r.tempo}<br>
+        Discord: ${r.discord}<br>
+        <button onclick="aceitar(${i})">Aceitar</button>
+        <button onclick="recusar(${i})">Recusar</button>
+      </div>
+    `;
+  });
 }
 
 function aceitar(i){
-recrutamentos.splice(i,1);
-localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
-render();
+  recrutamentos.splice(i, 1);
+  localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
+  render();
 }
 
 function recusar(i){
-recrutamentos.splice(i,1);
-localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
-render();
+  recrutamentos.splice(i, 1);
+  localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
+  render();
 }
