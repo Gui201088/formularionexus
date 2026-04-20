@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1 class="logo">NEXUS</h1>
+    <p class="subtitle">União. Força. Evolução.</p>
+
+    <div class="hero-buttons">
+      <button onclick="go('recrutamento')">Entrar no Clã</button>
+      <button class="outline" onclick="go('login')">Área ADM</button>
+    </div>
+  </div>
+</section>
+
+<!-- RECRUTAMENTO -->
+<section id="recrutamento" class="page">
+  <div class="container">
+    <div class="box">
+      <h2>Recrutamento</h2>
+
+      <form onsubmit="enviar(event)">
+        <input id="nick" placeholder="Seu nick" required>
+        <textarea id="motivo" placeholder="Por que quer entrar?" required></textarea>
+        <textarea id="skill" placeholder="No que você é bom?" required></textarea>
+        <input id="tempo" placeholder="Quanto joga por dia?" required>
+        <button>Enviar inscrição</button>
+      </form>
+
+      <button class="back" onclick="goHome()">Voltar</button>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section id="login" class="page">
+  <div class="container">
+    <div class="box">
+      <h2>Login ADM</h2>
+
+      <form onsubmit="login(event)">
+        <input id="user" placeholder="Usuário" required>
+        <input id="pass" type="password" placeholder="Senha" required>
+        <button>Entrar</button>
+      </form>
+
+      <button class="back" onclick="goHome()">Voltar</button>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin" class="page">
+  <div class="container">
+    <div class="box">
+      <h2>Painel ADM</h2>
+      <div id="lista"></div>
+      <button class="back" onclick="goHome()">Sair</button>
+    </div>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
