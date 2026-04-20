@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXUS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- HERO -->
+<!-- HOME -->
 <section class="hero">
   <div class="container">
     <h1 class="logo">NEXUS</h1>
     <p class="subtitle">União. Força. Evolução.</p>
+
     <div class="hero-buttons">
       <button onclick="go('recrutamento')">Entrar no Clã</button>
       <button class="outline" onclick="go('login')">Área ADM</button>
@@ -25,47 +28,65 @@
 <section id="recrutamento" class="page">
   <div class="container">
     <div class="box">
+
       <h2>Recrutamento</h2>
+
       <form onsubmit="enviar(event)">
         <input id="nick" placeholder="Seu nick" required>
         <textarea id="motivo" placeholder="Por que quer entrar?" required></textarea>
         <textarea id="skill" placeholder="No que você é bom?" required></textarea>
         <input id="tempo" placeholder="Quanto joga por dia?" required>
-        <input id="discord" placeholder="Link do Discord" required>
-        <button>Enviar inscrição</button>
+        <input id="discord" placeholder="Seu Discord (ex: gbzin244)" required>
+
+        <button type="submit">Enviar inscrição</button>
       </form>
-      <p>Para mais contatos, entrar em meu Discord: gbzin244</p>
-      <button class="back" onclick="goHome()">Voltar</button>
+
+      <p style="margin-top:15px; opacity:.7;">
+        Para mais contato: Discord <b>gbzin244</b>
+      </p>
+
+      <button class="outline" onclick="goHome()">Voltar</button>
+
     </div>
   </div>
 </section>
 
-<!-- LOGIN -->
+<!-- LOGIN ADM -->
 <section id="login" class="page">
   <div class="container">
     <div class="box">
+
       <h2>Login ADM</h2>
+
       <form onsubmit="login(event)">
         <input id="user" placeholder="Usuário" required>
         <input id="pass" type="password" placeholder="Senha" required>
-        <button>Entrar</button>
+        <button type="submit">Entrar</button>
       </form>
-      <button class="back" onclick="goHome()">Voltar</button>
+
+      <button class="outline" onclick="goHome()">Voltar</button>
+
     </div>
   </div>
 </section>
 
-<!-- ADMIN -->
+<!-- PAINEL ADM -->
 <section id="admin" class="page">
   <div class="container">
     <div class="box">
+
       <h2>Painel ADM</h2>
+
       <div id="lista"></div>
-      <button class="back" onclick="goHome()">Sair</button>
+
+      <button class="outline" onclick="goHome()">Sair</button>
+
     </div>
   </div>
 </section>
 
-<script src="script.js"></script>
+<!-- SCRIPT (TEM QUE SER MODULE) -->
+<script type="module" src="script.js"></script>
+
 </body>
 </html>
