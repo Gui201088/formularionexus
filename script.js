@@ -1,74 +1,80 @@
+// FIREBASE (CDN)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// SUA CONFIG (a que você mandou no print)
+const firebaseConfig = {
+  apiKey: "AIzaSyDTNWErmmJpuPU2QZNHEsDBQ_Stffbkfmo",
+  authDomain: "nexuscla.firebaseapp.com",
+  projectId: "nexuscla",
+  storageBucket: "nexuscla.firebasestorage.app",
+  messagingSenderId: "575158035283",
+  appId: "1:575158035283:web:f1cf068a2c08d083f337a6",
+  measurementId: "G-WBMY0NZG9K"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// LOGIN
 const USER = "subgui";
 const PASS = "nexus123";
 
-let recrutamentos = JSON.parse(localStorage.getItem('recrutamentos')) || [];
-
 /* NAVEGAÇÃO */
 function go(id){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
 }
 
 function goHome(){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 }
 
 /* ENVIAR */
-function enviar(e){
-  e.preventDefault();
+async function enviar(e){
+e.preventDefault();
 
-  recrutamentos.push({
-    nick: document.getElementById('nick').value,
-    motivo: document.getElementById('motivo').value,
-    skill: document.getElementById('skill').value,
-    tempo: document.getElementById('tempo').value,
-    discord: document.getElementById('discord').value
-  });
+await addDoc(collection(db, "recrutamentos"), {
+nick: nick.value,
+motivo: motivo.value,
+skill: skill.value,
+tempo: tempo.value,
+discord: discord.value
+});
 
-  localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
-  alert("Inscrição enviada!");
+alert("Enviado com sucesso!");
 }
 
 /* LOGIN */
 function login(e){
-  e.preventDefault();
+e.preventDefault();
 
-  if (document.getElementById('user').value === USER && document.getElementById('pass').value === PASS) {
-    go('admin');
-    render();
-  } else {
-    alert("Acesso negado");
-  }
+if(user.value === USER && pass.value === PASS){
+go('admin');
+render();
+}else{
+alert("Acesso negado");
+}
 }
 
 /* RENDER */
-function render(){
-  let div = document.getElementById('lista');
-  div.innerHTML = "";
+async function render(){
+let div = document.getElementById('lista');
+div.innerHTML = "";
 
-  recrutamentos.forEach((r, i) => {
-    div.innerHTML += `
-      <div class="admin-card">
-        <b>${r.nick}</b><br>
-        Motivo: ${r.motivo}<br>
-        Habilidade: ${r.skill}<br>
-        Tempo: ${r.tempo}<br>
-        Discord: ${r.discord}<br>
-        <button onclick="aceitar(${i})">Aceitar</button>
-        <button onclick="recusar(${i})">Recusar</button>
-      </div>
-    `;
-  });
-}
+const querySnapshot = await getDocs(collection(db, "recrutamentos"));
 
-function aceitar(i){
-  recrutamentos.splice(i, 1);
-  localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
-  render();
-}
+querySnapshot.forEach((docSnap)=>{
+const r = docSnap.data();
 
-function recusar(i){
-  recrutamentos.splice(i, 1);
-  localStorage.setItem('recrutamentos', JSON.stringify(recrutamentos));
-  render();
+div.innerHTML += `
+<div class="admin-card">
+<b>${r.nick}</b><br>
+${r.motivo}<br>
+${r.skill}<br>
+${r.tempo}<br>
+${r.discord}<br>
+</div>
+`;
+});
 }
