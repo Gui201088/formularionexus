@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// SUA CONFIG (a que você mandou no print)
+// CONFIG DO SEU FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyDTNWErmmJpuPU2QZNHEsDBQ_Stffbkfmo",
   authDomain: "nexuscla.firebaseapp.com",
@@ -20,61 +20,76 @@ const db = getFirestore(app);
 const USER = "subgui";
 const PASS = "nexus123";
 
-/* NAVEGAÇÃO */
-function go(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
+/* =========================
+   NAVEGAÇÃO (FUNCIONA COM HTML)
+========================= */
+
+window.go = function(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function goHome(){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+window.goHome = function(){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 }
 
-/* ENVIAR */
-async function enviar(e){
-e.preventDefault();
+/* =========================
+   ENVIAR FORMULÁRIO (FIREBASE)
+========================= */
 
-await addDoc(collection(db, "recrutamentos"), {
-nick: nick.value,
-motivo: motivo.value,
-skill: skill.value,
-tempo: tempo.value,
-discord: discord.value
-});
+window.enviar = async function(e){
+  e.preventDefault();
 
-alert("Enviado com sucesso!");
+  await addDoc(collection(db, "recrutamentos"), {
+    nick: document.getElementById('nick').value,
+    motivo: document.getElementById('motivo').value,
+    skill: document.getElementById('skill').value,
+    tempo: document.getElementById('tempo').value,
+    discord: document.getElementById('discord').value
+  });
+
+  alert("Inscrição enviada com sucesso!");
 }
 
-/* LOGIN */
-function login(e){
-e.preventDefault();
+/* =========================
+   LOGIN ADM
+========================= */
 
-if(user.value === USER && pass.value === PASS){
-go('admin');
-render();
-}else{
-alert("Acesso negado");
-}
+window.login = function(e){
+  e.preventDefault();
+
+  const user = document.getElementById('user').value;
+  const pass = document.getElementById('pass').value;
+
+  if(user === USER && pass === PASS){
+    go('admin');
+    render();
+  } else {
+    alert("Acesso negado");
+  }
 }
 
-/* RENDER */
+/* =========================
+   MOSTRAR FORMULÁRIOS
+========================= */
+
 async function render(){
-let div = document.getElementById('lista');
-div.innerHTML = "";
+  let div = document.getElementById('lista');
+  div.innerHTML = "";
 
-const querySnapshot = await getDocs(collection(db, "recrutamentos"));
+  const querySnapshot = await getDocs(collection(db, "recrutamentos"));
 
-querySnapshot.forEach((docSnap)=>{
-const r = docSnap.data();
+  querySnapshot.forEach((docSnap) => {
+    const r = docSnap.data();
 
-div.innerHTML += `
-<div class="admin-card">
-<b>${r.nick}</b><br>
-${r.motivo}<br>
-${r.skill}<br>
-${r.tempo}<br>
-${r.discord}<br>
-</div>
-`;
-});
+    div.innerHTML += `
+      <div class="admin-card">
+        <b>${r.nick}</b><br>
+        <b>Motivo:</b> ${r.motivo}<br>
+        <b>Skill:</b> ${r.skill}<br>
+        <b>Tempo:</b> ${r.tempo}<br>
+        <b>Discord:</b> ${r.discord}
+      </div>
+    `;
+  });
 }
