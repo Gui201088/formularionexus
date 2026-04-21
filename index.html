@@ -11,7 +11,6 @@
 
 <body>
 
-<!-- HOME -->
 <section class="hero">
   <div class="container">
     <h1 class="logo">NEXUS</h1>
@@ -24,11 +23,9 @@
   </div>
 </section>
 
-<!-- RECRUTAMENTO -->
 <section id="recrutamento" class="page">
   <div class="container">
     <div class="box">
-
       <h2>Recrutamento</h2>
 
       <form onsubmit="enviar(event)">
@@ -41,21 +38,16 @@
         <button type="submit">Enviar inscrição</button>
       </form>
 
-      <p style="margin-top:15px; opacity:.7;">
-        Para mais contato: Discord <b>gbzin244</b>
-      </p>
+      <p class="info">Contato: gbzin244</p>
 
       <button class="outline" onclick="goHome()">Voltar</button>
-
     </div>
   </div>
 </section>
 
-<!-- LOGIN ADM -->
 <section id="login" class="page">
   <div class="container">
     <div class="box">
-
       <h2>Login ADM</h2>
 
       <form onsubmit="login(event)">
@@ -65,27 +57,22 @@
       </form>
 
       <button class="outline" onclick="goHome()">Voltar</button>
-
     </div>
   </div>
 </section>
 
-<!-- PAINEL ADM -->
 <section id="admin" class="page">
   <div class="container">
     <div class="box">
-
       <h2>Painel ADM</h2>
 
       <div id="lista"></div>
 
       <button class="outline" onclick="goHome()">Sair</button>
-
     </div>
   </div>
 </section>
 
-<!-- SCRIPT (TEM QUE SER MODULE) -->
 <script type="module" src="script.js"></script>
 
 </body>
