@@ -4,9 +4,12 @@ import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.c
 
 // 🔥 COLE AQUI SUA CONFIG DO FIREBASE (DO PROJETO NOVO)
 const firebaseConfig = {
-  apiKey: "COLE_AQUI",
-  authDomain: "COLE_AQUI",
-  projectId: "COLE_AQUI",
+  apiKey: "AIzaSyBibVWc2mv4pQd3hejDHF4SEUJPzKpWtz0",
+  authDomain: "nexus2-73c03.firebaseapp.com",
+  projectId: "nexus2-73c03",
+  storageBucket: "nexus2-73c03.firebasestorage.app",
+  messagingSenderId: "957897011515",
+  appId: "1:957897011515:web:898db561af8a1608b4c71e"
 };
 
 // INICIALIZA
